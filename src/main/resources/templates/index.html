@@ -31,8 +31,34 @@
 </nav>
 <div class="container">
     <div class="row">
-        <h1 class="text-center"> Welcome to Registration and Login System </h1>
+        <h1 class="text-center"> Welcome to the Products System </h1>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>Price</td>
+                <td>Description</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.description}"></td>
+                <td th:text="${product.image}"></td>
+                <td>
+                    <form method="post" th:action="@{add-to-cart/{productId}(productId={product.id})}">
+                        <input type="submit" value="Add to cart"/>
+                    </form>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
+//create thymleaf page which gets products from productlist controller and display they
+
+
+
 </body>
 </html>

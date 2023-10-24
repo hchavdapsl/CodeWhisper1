@@ -5,7 +5,6 @@ import com.codewhisper.demo.dto.UserLoginDTO;
 import com.codewhisper.demo.entity.User;
 import com.codewhisper.demo.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,14 +32,20 @@ public class AuthController {
         return "login";
     }
 
+    //create springboot post mapping for login request which accepts and binds UserLoginDto from thymleaf
     @PostMapping("/login")
-    public String loginForm(@ModelAttribute("user") UserLoginDTO user) {
-        System.out.println("logging in 123" + user);
+    public String login(@Valid @ModelAttribute("user") UserLoginDTO userLoginDTO, BindingResult result, Model model) {
+        //extract username and password from userLoginDTO and send to userService for authentication
+        User user = userService.authenticate(userLoginDTO.getUserName(), userLoginDTO.getPassword());
+        if (user != null) {
+            return "redirect:/index";
+        }
         return "login";
     }
+    
 
     // handler method to handle user registration request
-    @GetMapping("register")
+    @GetMapping("/register")
     public String showRegistrationForm(Model model){
         UserDto user = new UserDto();
         model.addAttribute("user", user);

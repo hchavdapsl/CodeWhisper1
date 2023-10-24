@@ -95,4 +95,12 @@ public class UserServiceImpl implements UserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    @Override
+    public User authenticate(String userName, String password) {
+        //authenticate user with username and password from repository
+        return userRepository.findByUserNameAndPassword(userName, password);
+        
+
+    }
 }

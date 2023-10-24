@@ -18,4 +18,6 @@ public interface UserService {
     List<User> getAllUsers();
 
     User findByEmail(String email);
+
+    User authenticate(String userName, String password);
 }
