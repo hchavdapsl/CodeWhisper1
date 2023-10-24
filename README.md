@@ -1,2 +1,2 @@
-# CodeWhisper1
+# codewhisperdemo
 Amazon codewhisper demo with springboot app
