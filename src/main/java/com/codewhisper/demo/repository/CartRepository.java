@@ -1,10 +1,11 @@
 
 //create springboot JPA repository for the Cart entity
 
-package com.example.demo.repository;
+package com.codewhisper.demo.repository;
 
-import com.example.demo.model.Cart;
+import com.codewhisper.demo.entity.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 //add missing imports
 

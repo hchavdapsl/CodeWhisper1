@@ -3,7 +3,9 @@
 package com.codewhisper.demo.service;
 
 import com.codewhisper.demo.entity.Product;
+
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
 	
@@ -12,5 +14,10 @@ public interface ProductService {
 	Product searchProduct(int id);
 	boolean deleteProduct(int id);
 	List<Product> findAll();
-	
+
+    List<Product> getAllProducts();
+
+	void save(Product theProduct);
+
+	Optional<Product> findById(int productId);
 }

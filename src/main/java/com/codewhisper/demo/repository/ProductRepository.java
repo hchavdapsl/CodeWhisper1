@@ -1,13 +1,12 @@
 // Create JPA ProductRepository
 
-package com.example.demo.repository;
+package com.codewhisper.demo.repository;
 
+import com.codewhisper.demo.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import com.example.demo.entity.Product;
 
 @Repository
 

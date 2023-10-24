@@ -1,11 +1,8 @@
 //create springboot jpa entity for Cart with id, username, productid
 
-package com.example.demo.entity;
+package com.codewhisper.demo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="cart")

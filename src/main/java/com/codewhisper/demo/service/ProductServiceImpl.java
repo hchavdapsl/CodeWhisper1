@@ -3,21 +3,49 @@
 package com.codewhisper.demo.service;
 
 import com.codewhisper.demo.entity.Product;
+import com.codewhisper.demo.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
+import java.util.Optional;
 
 public class ProductServiceImpl implements  ProductService {
     
     @Autowired
     private ProductRepository productRepository;
 
+    @Override
+    public Product addProduct(Product product) {
+        return null;
+    }
+
+    @Override
+    public Product updateProduct(Product product) {
+        return null;
+    }
+
+    @Override
+    public Product searchProduct(int id) {
+        return null;
+    }
+
+    @Override
+    public boolean deleteProduct(int id) {
+        return false;
+    }
+
     //implement methods from ProductService
     @Override
     public List<Product> findAll() {
         return productRepository.findAll();
     }
-    
+
     @Override
-    public Product findById(int theId) {
+    public List<Product> getAllProducts() {
+        return null;
+    }
+
+    public Optional<Product> findById(int theId) {
         return productRepository.findById(theId);
     }
     
@@ -25,8 +53,7 @@ public class ProductServiceImpl implements  ProductService {
     public void save(Product theProduct) {
         productRepository.save(theProduct);
     }
-    
-    @Override
+
     public void deleteById(int theId) {
         productRepository.deleteById(theId);
     }
