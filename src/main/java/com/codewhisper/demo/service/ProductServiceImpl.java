@@ -43,7 +43,7 @@ public class ProductServiceImpl implements  ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-        return null;
+        return productRepository.findAll();
     }
 
     public Optional<Product> findById(int theId) {

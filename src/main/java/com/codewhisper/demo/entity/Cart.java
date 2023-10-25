@@ -32,5 +32,12 @@ public class Cart {
 	public void setProductid(int productid) {
 		this.productid = productid;
 	}
-	
+
+	public Cart(String username, int productid) {
+		this.username = username;
+		this.productid = productid;
+	}
+
+	public Cart() {
+	}
 }

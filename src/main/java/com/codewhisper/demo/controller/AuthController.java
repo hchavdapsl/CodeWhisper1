@@ -1,6 +1,7 @@
 package com.codewhisper.demo.controller;
 
 import com.codewhisper.demo.dto.UserDto;
+import com.codewhisper.demo.entity.Product;
 import com.codewhisper.demo.entity.User;
 import com.codewhisper.demo.service.UserService;
 import jakarta.validation.Valid;
@@ -23,7 +24,15 @@ public class AuthController {
     @GetMapping("index")
     public String home(){
         System.out.println("Going to home");
-        return "index";
+        return "products";
+    }
+
+    @GetMapping("products")
+    public String getProducts(Model model) {
+//        List<Product> products = productService.getAllProducts();
+//        model.addAttribute("products", products);
+        System.out.println("returning products");
+        return "products";
     }
 
     @GetMapping("/login")

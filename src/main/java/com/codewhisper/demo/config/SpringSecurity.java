@@ -41,15 +41,17 @@ public class SpringSecurity {
         requestCache.setMatchingRequestParameterName(null);
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
-                        authorize.requestMatchers("/register/**").permitAll()
-                                .requestMatchers("/index").permitAll()
-                                .requestMatchers("/users").hasRole("ADMIN")
-                                .requestMatchers("/products").hasRole("ADMIN")
+                                authorize.anyRequest().authenticated()
+//                .authorizeHttpRequests((authorize) ->
+//                        authorize.requestMatchers("/register/**").permitAll()
+//                                .requestMatchers("/index").permitAll()
+//                                .requestMatchers("/users").hasRole("ADMIN")
+//                                .requestMatchers("/products").hasRole("ADMIN")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .successForwardUrl("/products")
+//                                .defaultSuccessUrl("/products")
                                 .permitAll()
                 ).logout(
                         logout -> logout
