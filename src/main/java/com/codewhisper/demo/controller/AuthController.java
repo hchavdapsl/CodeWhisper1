@@ -1,7 +1,6 @@
 package com.codewhisper.demo.controller;
 
 import com.codewhisper.demo.dto.UserDto;
-import com.codewhisper.demo.dto.UserLoginDTO;
 import com.codewhisper.demo.entity.User;
 import com.codewhisper.demo.service.UserService;
 import jakarta.validation.Valid;
@@ -23,32 +22,19 @@ public class AuthController {
 
     @GetMapping("index")
     public String home(){
-        System.out.println("...going ot index...");
-    return "index";
+        System.out.println("Going to home");
+        return "index";
     }
 
     @GetMapping("/login")
-    public String login1() {
-        System.out.println("logging in ...get");
+    public String loginForm(Model model) {
+        System.out.println("login form");
         return "login";
     }
-
-    //create springboot post mapping for login request which accepts and binds UserLoginDto from thymleaf
-    @PostMapping("/loginToSystem")
-    public String loginToSystem(@Valid @ModelAttribute("user") UserLoginDTO userLoginDTO, BindingResult result, Model model) {
-        //extract username and password from userLoginDTO and send to userService for authentication
-        System.out.println("post logging in...." + userLoginDTO);
-        User user = userService.authenticate(userLoginDTO.getUserName(), userLoginDTO.getPassword());
-        if (user != null) {
-            return "redirect:/index";
-        }
-        return "login";
-    }
-    
 
     // handler method to handle user registration request
-    @GetMapping("/register")
-    public String showRegistrationForm(Model model){
+    @GetMapping("register")
+        public String showRegistrationForm(Model model){
         UserDto user = new UserDto();
         model.addAttribute("user", user);
         return "register";

@@ -1,7 +1,11 @@
 package com.codewhisper.demo;
 
+import com.codewhisper.demo.dto.UserDto;
+import com.codewhisper.demo.entity.Role;
 import com.codewhisper.demo.entity.User;
+import com.codewhisper.demo.repository.RoleRepository;
 import com.codewhisper.demo.repository.UserRepository;
+import com.codewhisper.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +15,10 @@ import org.springframework.boot.CommandLineRunner;
 public class CodeWhisperDemoApplication implements CommandLineRunner{
 
 	@Autowired
-	UserRepository userRepository;
+	UserService userService;
+
+	@Autowired
+	RoleRepository roleRepository;
 
 	public static void main(String[] args) {
 
@@ -21,9 +28,10 @@ public class CodeWhisperDemoApplication implements CommandLineRunner{
 	//load user data into database using name, username, password and email, use indian names
 	@Override
 	public void run(String... args) throws Exception {
-			userRepository.save(new User( "admin", "admin", "admin", "test@test.com"));
-			userRepository.save(new User( "Sandeep", "sandeep", "sandeep", "sandeep@test.com"));
-			userRepository.save(new User( "Raj", "raj", "raj", "raj@test.com"));
-
+		roleRepository.save(new Role("ADMIN"));
+		roleRepository.save(new Role("USER"));
+		userService.saveAdmin(new UserDto( "admin", "admin", "admin", "test@test.com"));
+		userService.saveUser(new UserDto( "Sandeep", "sandeep", "sandeep", "sandeep@test.com"));
+		userService.saveUser(new UserDto( "Raj", "raj", "raj", "raj@test.com"));
 	}
 }

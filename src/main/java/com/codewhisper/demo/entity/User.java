@@ -3,6 +3,7 @@ package com.codewhisper.demo.entity;
 
 //create user entity class with id, name, username, password and email
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -11,26 +12,27 @@ import java.util.List;
 @Entity
 @Table(name="users")
 public class User {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable=false)
     private String name;
-    @Column(nullable=false, unique = true)
-    private String userName;
-    private String password;
-    @Column(nullable=false, unique = true)
+
+    @Column(nullable=false, unique=true)
     private String email;
 
-    public User() {
-    }
+    @Column(nullable=false)
+    private String password;
 
-    public User(String name, String userName, String password, String email) {
-        this.name = name;
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-    }
+    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.MERGE)
+    @JoinTable(
+            name="users_roles",
+            joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
+            inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
+    private List<Role> roles = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -48,12 +50,12 @@ public class User {
         this.name = name;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -63,20 +65,23 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String getEmail() {
-        return email;
+
+    public List<Role> getRoles() {
+        return roles;
     }
-    public void setEmail(String email) {
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public User() {
+    }
+
+    public User(Long id, String name, String email, String password, List<Role> roles) {
+        this.id = id;
+        this.name = name;
         this.email = email;
-    }
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", username='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        this.password = password;
+        this.roles = roles;
     }
 }
