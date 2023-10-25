@@ -20,4 +20,9 @@ public interface UserService {
     User findByEmail(String email);
 
     User authenticate(String userName, String password);
+
+    User findByUserName(String userName);
+
+    void save(User userForm);
+
 }

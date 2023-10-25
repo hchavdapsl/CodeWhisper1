@@ -3,13 +3,8 @@ package com.codewhisper.demo.service;
 //create springboot user service class to Create, Update, Delete, Read and Read all users
 
 import com.codewhisper.demo.dto.UserDto;
-import com.codewhisper.demo.dto.UserLoginDTO;
-import com.codewhisper.demo.dto.UserRegistrationDTO;
-import com.codewhisper.demo.entity.Role;
 import com.codewhisper.demo.entity.User;
-import com.codewhisper.demo.repository.RoleRepository;
 import com.codewhisper.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +17,11 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
-    private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository,
-                           RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -41,11 +33,6 @@ public class UserServiceImpl implements UserService {
         // encrypt the password using spring security
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-        Role role = roleRepository.findByName("ROLE_ADMIN");
-        if(role == null){
-            role = checkRoleExist();
-        }
-        user.setRoles(Arrays.asList(role));
         userRepository.save(user);
     }
 
@@ -69,13 +56,6 @@ public class UserServiceImpl implements UserService {
         userDto.setEmail(user.getEmail());
         return userDto;
     }
-
-    private Role checkRoleExist(){
-        Role role = new Role();
-        role.setName("ROLE_ADMIN");
-        return roleRepository.save(role);
-    }
-
     public User updateUser(Long id, User user) {
         return null;
     }
@@ -102,5 +82,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUserNameAndPassword(userName, password);
         
 
+    }
+
+    @Override
+    public User findByUserName(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
+    @Override
+    public void save(User userForm) {
+        userRepository.save(userForm);
     }
 }

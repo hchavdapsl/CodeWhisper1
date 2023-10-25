@@ -23,19 +23,21 @@ public class AuthController {
 
     @GetMapping("index")
     public String home(){
-        return "index";
+        System.out.println("...going ot index...");
+    return "index";
     }
 
     @GetMapping("/login")
     public String login1() {
-        System.out.println("logging in");
+        System.out.println("logging in ...get");
         return "login";
     }
 
     //create springboot post mapping for login request which accepts and binds UserLoginDto from thymleaf
-    @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("user") UserLoginDTO userLoginDTO, BindingResult result, Model model) {
+    @PostMapping("/loginToSystem")
+    public String loginToSystem(@Valid @ModelAttribute("user") UserLoginDTO userLoginDTO, BindingResult result, Model model) {
         //extract username and password from userLoginDTO and send to userService for authentication
+        System.out.println("post logging in...." + userLoginDTO);
         User user = userService.authenticate(userLoginDTO.getUserName(), userLoginDTO.getPassword());
         if (user != null) {
             return "redirect:/index";
