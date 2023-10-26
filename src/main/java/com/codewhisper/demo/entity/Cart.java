@@ -15,35 +15,41 @@ public class Cart {
     @Column(name = "productid")
     private int productid;
 
-    public int getId() {
-        return id;
-    }
+    // Create default constructor for Cart
+    public Cart() {
 
-    public void setId(int id) {
-        this.id = id;
     }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public int getProductid() {
-        return productid;
-    }
-
-    public void setProductid(int productid) {
-        this.productid = productid;
-    }
-
+    // Create constructor for Cart with username, productid
     public Cart(String username, int productid) {
         this.username = username;
         this.productid = productid;
     }
-
-    public Cart() {
+    // Generate getters and setters for Cart
+    public int getId() {
+        return id;
     }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public int getProductid() {
+        return productid;
+    }
+    public void setProductid(int productid) {
+        this.productid = productid;
+    }
+    // Generate toString for Cart
+    @Override
+    public String toString() {
+        return "Cart [id=" + id + ", username=" + username + ", productid=" + productid + "]";
+    }
+
+    
+    
+
 }

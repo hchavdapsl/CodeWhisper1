@@ -7,22 +7,14 @@ import com.codewhisper.demo.entity.Product;
 import java.util.List;
 import java.util.Optional;
 
+// Create ProductService interface with add, update, search, delete, findAll, save and findById
 
 public interface ProductService {
-
-    Product addProduct(Product product);
-
-    Product updateProduct(Product product);
-
-    Product searchProduct(int id);
-
-    boolean deleteProduct(int id);
-
+    Product add(Product product);
+    Product update(Product product);
+    Optional<Product> search(int id);
+    void delete(int id);
     List<Product> findAll();
-
-    List<Product> getAllProducts();
-
-    void save(Product theProduct);
-
-    Optional<Product> findById(int productId);
+    Product save(Product product);
+    Optional<Product> findById(int id);
 }

@@ -1,8 +1,11 @@
 package com.codewhisper.demo.entity;
 
 import jakarta.persistence.*;
+import java.util.Set;
+import javax.persistence.GenerationType;
+import java.util.HashSet;
 
-import java.util.List;
+// Create JPA Role entity with id, name and users with many to many mapping with User
 
 @Entity
 @Table(name = "roles")
@@ -11,6 +14,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // create name column which is nonnull and unique
     @Column(nullable = false, unique = true)
     private String name;
 
@@ -18,6 +22,10 @@ public class Role {
     private List<User> users;
 
     public Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -36,21 +44,11 @@ public class Role {
         this.name = name;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public Role(String name) {
-        this.name = name;
-    }
-
-    public Role(Long id, String name, List<User> users) {
-        this.id = id;
-        this.name = name;
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+// Implement ProductService interface
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -17,47 +18,31 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public Product addProduct(Product product) {
-        return null;
+    public Product add(Product product) {
+        return productRepository.save(product);
     }
-
     @Override
-    public Product updateProduct(Product product) {
-        return null;
+    public Product update(Product product) {
+        return productRepository.save(product);
     }
-
     @Override
-    public Product searchProduct(int id) {
-        return null;
+    public Optional<Product> search(int id) {
+        return productRepository.findById(id);
     }
-
     @Override
-    public boolean deleteProduct(int id) {
-        return false;
+    public void delete(int id) {
+        productRepository.deleteById(id);
     }
-
-    //implement methods from ProductService
     @Override
     public List<Product> findAll() {
         return productRepository.findAll();
     }
-
     @Override
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public Product save(Product product) {
+        return productRepository.save(product);
     }
-
-    public Optional<Product> findById(int theId) {
-        return productRepository.findById(theId);
-    }
-
     @Override
-    public void save(Product theProduct) {
-        productRepository.save(theProduct);
+    public Optional<Product> findById(int id) {
+        return productRepository.findById(id);
     }
-
-    public void deleteById(int theId) {
-        productRepository.deleteById(theId);
-    }
-
 }
