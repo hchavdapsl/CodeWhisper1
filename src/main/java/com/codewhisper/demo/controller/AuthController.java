@@ -23,21 +23,21 @@ public class AuthController {
 
     @GetMapping("index")
     public String home(){
-        System.out.println("Going to home");
         return "products";
+    }
+
+    @GetMapping("/app.js")
+    public String appjs(){
+        return "/app.js";
     }
 
     @GetMapping("products")
     public String getProducts(Model model) {
-//        List<Product> products = productService.getAllProducts();
-//        model.addAttribute("products", products);
-        System.out.println("returning products");
         return "products";
     }
 
     @GetMapping("/login")
     public String loginForm(Model model) {
-        System.out.println("login form");
         return "login";
     }
 

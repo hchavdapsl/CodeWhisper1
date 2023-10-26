@@ -2,6 +2,7 @@
 
 package com.codewhisper.demo.controller;
 
+import com.codewhisper.demo.dto.CartDto;
 import com.codewhisper.demo.entity.Cart;
 import com.codewhisper.demo.entity.Product;
 import com.codewhisper.demo.entity.User;
@@ -44,15 +45,67 @@ public class ProductController {
             user = userService.findByEmail(name);
             session.setAttribute("user", user);
         }
-        List<Cart> cartItems = cartService.findByUsername(user.getName());
-        if(cartItems == null)
-            cartItems = new ArrayList<>();
-
-        model.addAttribute("cart", cartItems);
+        List<Cart> cart = cartService.findByUsername(user.getName());
+        model.addAttribute("cartSize", cart.size());
 		List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
         return "products";
 	}
+    @GetMapping("/products/payment")
+    public String payment(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if(user == null) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String name = auth.getName();
+            user = userService.findByEmail(name);
+            session.setAttribute("user", user);
+        }
+        model.addAttribute("total", model.getAttribute("total"));
+        return "payment";
+    }
+
+    @PostMapping("/products/makePayment")
+    public String makePayment(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if(user == null) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String name = auth.getName();
+            user = userService.findByEmail(name);
+            session.setAttribute("user", user);
+        }
+        List<Cart> cartItems = cartService.findByUsername(user.getName());
+        for(Cart cart:cartItems) {
+            cartService.delete(cart);
+        }
+        model.addAttribute("cartSize", 0);
+        return "paymentsuccess";
+    }
+    @GetMapping("/products/view-cart")
+    public String viewCart(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if(user == null) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String name = auth.getName();
+            user = userService.findByEmail(name);
+            session.setAttribute("user", user);
+        }
+        List<Cart> cartItems = cartService.findByUsername(user.getName());
+        List<CartDto> cart = new ArrayList<CartDto>();
+        Double total = 0.0;
+        if(cartItems != null && !cartItems.isEmpty()) {
+            for(Cart cartItem: cartItems) {
+                Optional<Product> product = productService.findById(cartItem.getProductid());
+                if(product.isPresent()) {
+                    Product prod = (Product) product.get();
+                    cart.add(new CartDto(prod.getName(), prod.getDescription(), prod.getPrice()));
+                    total+=prod.getPrice();
+                }
+            }
+        }
+        model.addAttribute("cartItems", cart);
+        model.addAttribute("total", total);
+        return "shoppingcart";
+    }
 
     //add post mapping for add-to-cart funtionality form thymleaf
     @PostMapping("/products/add-to-cart")
@@ -69,11 +122,9 @@ public class ProductController {
         if(product.isPresent()) {
             //add product to cart
             cartService.save(product.get(), user);
-            //set cart in session
-//            session.setAttribute("cart", cart);
         }
         //redirect to products page
         return "index";
-    }    
+    }
 
 }

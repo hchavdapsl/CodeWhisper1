@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class SpringSecurity {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/h2-console/**"));
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
@@ -42,11 +44,6 @@ public class SpringSecurity {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
                                 authorize.anyRequest().authenticated()
-//                .authorizeHttpRequests((authorize) ->
-//                        authorize.requestMatchers("/register/**").permitAll()
-//                                .requestMatchers("/index").permitAll()
-//                                .requestMatchers("/users").hasRole("ADMIN")
-//                                .requestMatchers("/products").hasRole("ADMIN")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

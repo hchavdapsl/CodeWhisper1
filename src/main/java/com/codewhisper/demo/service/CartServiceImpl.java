@@ -27,4 +27,9 @@ public class CartServiceImpl implements CartService {
     public List<Cart> findByUsername(String username) {
         return cartRepository.findByUsername(username);
     }
+
+    @Override
+    public void delete(Cart cart) {
+        cartRepository.delete(cart);
+    }
 }

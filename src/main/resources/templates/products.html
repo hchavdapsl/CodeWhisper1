@@ -59,10 +59,13 @@
             </tbody>
         </table>
     </div>
-    <div align="right">
-        Shopping Cart Items: <span th:text="${cart.size}">
-        <a href="/shoppingcart"> View Shopping Cart </a>
-    </div>
+</div>
+<div align="right">
+    <table>
+        <td>Shopping Cart Items Size: <span th:text="${cartSize}"/></td>
+    <td><a class="nav-link active" aria-current="page"  href="/products/view-cart"> View Shopping Cart </a>
+    </td>
+    </table>
 </div>
 </body>
 </html>

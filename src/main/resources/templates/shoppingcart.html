@@ -17,11 +17,8 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" align="right">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
                 </li>
@@ -31,38 +28,39 @@
 </nav>
 <div class="container">
     <div class="row">
-        <h1 class="text-center"> Shopping Cart </h1>
+        <h1 class="text-center"> View Shopping Cart </h1>
     </div>
     <div>
-        <table>
+        <table border="1">
             <thead>
             <tr>
                 <th> Name </th>
                 <th> Description </th>
-                <th> Price </th>
-                <th/>
+                <th>Price</th>
             </tr>
             </thead>
             <tbody>
-            <!--tr th:if="${products.empty}">
-                <td colspan="2"> No products Available </td>
-            </tr-->
-            <tr th:each="product : ${products}">
-                <td><span th:text="${product.name}"> Name </span></td>
-                <td><span th:text="${product.description}"> Description </span></td>
-                <td><span th:text="${product.price}"> Price </span></td>
-                <td><form method="post" action="/products/add-to-cart">
-                    <input type="text" name="productId" th:value="${product.id}" hidden="true">
-                    <input type="submit" value="Add to cart"/>
-                </form></td>
+            <tr th:each="cart : ${cartItems}">
+                <td><span th:text="${cart.name}"> Name </span></td>
+                <td><span th:text="${cart.description}"> Description </span></td>
+                <td><span th:text="${cart.price}"> Price </span></td>
             </tr>
             </tbody>
         </table>
+        <table>
+        <th>
+           Total Price of cart
+        </th>
+        <td>
+            <span th:text="${total}"/>
+        </td>
+    </table>
     </div>
-    <div align="right">
-        Shopping Cart Items: <span th:text="${cart.size}">
-        <a href="/shoppingcart"> View Shopping Cart </a>
+    <div align="center">
+        <a class="nav-link active" aria-current="page"  href="/products/all"> Back To Products </a>
+        <br><a class="nav-link active" aria-current="page"  href="/products/payment"> Checkout Cart </a>
     </div>
 </div>
+
 </body>
 </html>
