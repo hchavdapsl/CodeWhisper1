@@ -46,7 +46,7 @@ public class ProductController {
         }
         List<Cart> cart = cartService.findByUsername(user.getName());
         model.addAttribute("cartSize", cart.size());
-        List<Product> products = productService.getAllProducts();
+        List<Product> products = productService.findAll();
         model.addAttribute("products", products);
         return "products";
     }
@@ -113,7 +113,7 @@ public class ProductController {
     public String addToCart(Model model, @RequestParam("productId") int productId, HttpSession session) {
         User user = (User) session.getAttribute("user");
         //retrieve users cart from session
-        Cart cart = (Cart) cartService.findByUsernameAndProductid(user, productId);
+        Cart cart = (Cart) cartService.findByUsernameAndProductid(user.getName(), productId);
         //if cart is null, create a new cart
         if (cart == null) {
             cart = new Cart();

@@ -7,7 +7,7 @@ import com.codewhisper.demo.entity.User;
 import java.util.List;
 // Create CartService interface with methods save, delete, findByUsername and findByUsernameAndProductid
 public interface CartService {
-    voidsave(Product product, User user);
+    void save(Product product, User user);
     Cart findByUsernameAndProductid(String username, int productid);
     List<Cart> findByUsername(String username);
     void delete(Cart cart);

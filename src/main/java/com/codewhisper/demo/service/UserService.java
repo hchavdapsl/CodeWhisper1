@@ -8,8 +8,8 @@ import java.util.List;
 // Create UserService interface with method saveUser, saveAdmin, findByEmail and findAllUsers
 
 public interface UserService {
-    User saveUser(UserDto userDto);
-    User saveAdmin(UserDto userDto);
+    void saveUser(UserDto userDto);
+    void saveAdmin(UserDto userDto);
     User findByEmail(String email);
-    List<User> findAllUsers();
+    List<UserDto> findAllUsers();
 }

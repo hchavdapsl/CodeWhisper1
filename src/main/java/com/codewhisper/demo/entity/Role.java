@@ -1,8 +1,10 @@
 package com.codewhisper.demo.entity;
 
 import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.Set;
-import javax.persistence.GenerationType;
+import jakarta.persistence.GenerationType;
 import java.util.HashSet;
 
 // Create JPA Role entity with id, name and users with many to many mapping with User
@@ -44,11 +46,11 @@ public class Role {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 }

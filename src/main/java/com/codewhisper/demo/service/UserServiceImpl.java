@@ -44,15 +44,16 @@ public class UserServiceImpl implements UserService {
     */    
     //implement saveUser method from UserService
     @Override
-    public void saveUser(userDto user) {
-        User localUser = userRepository.findByUsername(user.getUsername());
+    public void saveUser(UserDto user) {
+        User localUser = userRepository.findByEmail(user.getEmail());
         if (localUser != null) {
             System.out.println("User is already there");
-            return localUser;
+            return;
         }
         localUser = new User();
-        localUser.setUsername(user.getUsername());
+        localUser.setName(user.getFirstName() + " " + user.getLastName());
         localUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        localUser.setEmail(user.getEmail());
         Role role = roleRepository.findByName("USER");
         //if role is null, create new Role with name "USER"
         if (role == null) {
@@ -60,7 +61,7 @@ public class UserServiceImpl implements UserService {
             role.setName("USER");
             roleRepository.save(role);
         }
-        localUser.setRoles(role);
+        localUser.setRoles(Arrays.asList(role));
         userRepository.save(localUser);
     }
 
@@ -70,15 +71,16 @@ public class UserServiceImpl implements UserService {
     */
     //implement saveAdmin method from UserService
     @Override
-    public void saveAdmin(userDto user) {
-        User localUser = userRepository.findByUsername(user.getUsername());
+    public void saveAdmin(UserDto user) {
+        User localUser = userRepository.findByEmail(user.getEmail());
         if (localUser != null) {
             System.out.println("User is already there");
-            return localUser;
+            return;
         }
         localUser = new User();
-        localUser.setUsername(user.getUsername());
+        localUser.setName(user.getFirstName() + " " + user.getLastName());
         localUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        localUser.setEmail(user.getEmail());
         Role role = roleRepository.findByName("ADMIN");
         //if role is null, create new Role with name "ADMIN"
         if (role == null) {
@@ -86,7 +88,7 @@ public class UserServiceImpl implements UserService {
             role.setName("ADMIN");
             roleRepository.save(role);
         }
-        localUser.setRoles(role);
+        localUser.setRoles(Arrays.asList(role));
         userRepository.save(localUser);
     }
 
@@ -97,7 +99,7 @@ public class UserServiceImpl implements UserService {
     //implement findByEmail method from UserService
     @Override
     public User findByEmail(String email) {
-        return userRepository.findByUsername(email);
+        return userRepository.findByEmail(email);
     }
 
     //implement findAllUsers method from UserService
@@ -106,8 +108,16 @@ public class UserServiceImpl implements UserService {
         //get all users from userRepository
         List<User> users = userRepository.findAll();
         //convert users to userDtos
-        List<UserDto> userDtos = users.stream().map(user -> new UserDto(user.getId(), user.getUsername())).toList();
-        return userDtos;
+        return users.stream().map((user) -> convertEntityToDto(user))
+                .collect(Collectors.toList());
+    }
+    private UserDto convertEntityToDto(User user) {
+        UserDto userDto = new UserDto();
+        String[] name = user.getName().split(" ");
+        userDto.setFirstName(name[0]);
+        userDto.setLastName(name[1]);
+        userDto.setEmail(user.getEmail());
+        return userDto;
     }
 
 }
