@@ -9,7 +9,9 @@ import java.util.List;
 public interface CartService {
 
     void save(Product product, User user);
+
     Cart findByUsernameAndProductid(User user, int productId);
+
     List<Cart> findByUsername(String username);
 
     void delete(Cart cart);

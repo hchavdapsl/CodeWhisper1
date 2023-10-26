@@ -5,81 +5,81 @@ package com.codewhisper.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="product")
+@Table(name = "product")
 public class Product {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
-	
-	@Column(name="name")
-	private String name;
-	
-	@Column(name="description")
-	private String description;
-	
-	@Column(name="price")
-	private double price;
 
-	@Column
-	private String image;
-	
-	public Product() {
-		
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
 
-	public Product(String name, String description, double price, String image) {
-		this.name = name;
-		this.description = description;
-		this.price = price;
-		this.image = image;
-	}
+    @Column(name = "name")
+    private String name;
 
-	public String getImage() {
-		return image;
-	}
+    @Column(name = "description")
+    private String description;
 
-	public void setImage(String image) {
-		this.image = image;
-	}
+    @Column(name = "price")
+    private double price;
 
-	public Product(String name, String description, double price) {
-		this.name = name;
-		this.description = description;
-		this.price = price;
-	}
+    @Column
+    private String image;
 
-	public int getId() {
-		return id;
-	}
+    public Product() {
 
-	public void setId(int id) {
-        this.id = id;
-	}
-    
-	public String getName() {
-        return name;
-	}
-    
-	public void setName(String name) {
+    }
+
+    public Product(String name, String description, double price, String image) {
         this.name = name;
-	}
-    
-	public String getDescription() {
-        return description;
-	}
-    
-	public void setDescription(String description) {
         this.description = description;
-	}
-    
-	public double getPrice() {
-        return price;
-	}
-        
-	public void setPrice(double price) {
         this.price = price;
-	}
-    
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Product(String name, String description, double price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
 }

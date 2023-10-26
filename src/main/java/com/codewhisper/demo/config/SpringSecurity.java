@@ -39,8 +39,8 @@ public class SpringSecurity {
         http.csrf().disable()
                 .authorizeHttpRequests((AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authorize) -> {
                             authorize.requestMatchers(new AntPathRequestMatcher("/static/images/**")).permitAll();
-                    authorize.requestMatchers(new AntPathRequestMatcher("/images/**")).permitAll();
-                    authorize.requestMatchers(new AntPathRequestMatcher("static/images/**")).permitAll();
+                            authorize.requestMatchers(new AntPathRequestMatcher("/images/**")).permitAll();
+                            authorize.requestMatchers(new AntPathRequestMatcher("static/images/**")).permitAll();
                             authorize.anyRequest().authenticated();
                         }
                 )

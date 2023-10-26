@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
-public class ProductServiceImpl implements  ProductService {
-    
+public class ProductServiceImpl implements ProductService {
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -49,7 +50,7 @@ public class ProductServiceImpl implements  ProductService {
     public Optional<Product> findById(int theId) {
         return productRepository.findById(theId);
     }
-    
+
     @Override
     public void save(Product theProduct) {
         productRepository.save(theProduct);

@@ -33,12 +33,12 @@ public class ProductController {
 
     @Autowired
     private UserService userService;
-	
+
     //create get mapping that retrieves all the products
-	@GetMapping("/products/all")
-	public String getProducts(Model model, HttpSession session) {
+    @GetMapping("/products/all")
+    public String getProducts(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if(user == null) {
+        if (user == null) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             String name = auth.getName();
             user = userService.findByEmail(name);
@@ -46,14 +46,15 @@ public class ProductController {
         }
         List<Cart> cart = cartService.findByUsername(user.getName());
         model.addAttribute("cartSize", cart.size());
-		List<Product> products = productService.getAllProducts();
+        List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
         return "products";
-	}
+    }
+
     @GetMapping("/products/payment")
     public String payment(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if(user == null) {
+        if (user == null) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             String name = auth.getName();
             user = userService.findByEmail(name);
@@ -66,23 +67,24 @@ public class ProductController {
     @PostMapping("/products/makePayment")
     public String makePayment(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if(user == null) {
+        if (user == null) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             String name = auth.getName();
             user = userService.findByEmail(name);
             session.setAttribute("user", user);
         }
         List<Cart> cartItems = cartService.findByUsername(user.getName());
-        for(Cart cart:cartItems) {
+        for (Cart cart : cartItems) {
             cartService.delete(cart);
         }
         model.addAttribute("cartSize", 0);
         return "paymentsuccess";
     }
+
     @GetMapping("/products/view-cart")
     public String viewCart(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if(user == null) {
+        if (user == null) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             String name = auth.getName();
             user = userService.findByEmail(name);
@@ -91,13 +93,13 @@ public class ProductController {
         List<Cart> cartItems = cartService.findByUsername(user.getName());
         List<CartDto> cart = new ArrayList<CartDto>();
         Double total = 0.0;
-        if(cartItems != null && !cartItems.isEmpty()) {
-            for(Cart cartItem: cartItems) {
+        if (cartItems != null && !cartItems.isEmpty()) {
+            for (Cart cartItem : cartItems) {
                 Optional<Product> product = productService.findById(cartItem.getProductid());
-                if(product.isPresent()) {
+                if (product.isPresent()) {
                     Product prod = (Product) product.get();
                     cart.add(new CartDto(prod.getName(), prod.getDescription(), prod.getPrice()));
-                    total+=prod.getPrice();
+                    total += prod.getPrice();
                 }
             }
         }
@@ -118,7 +120,7 @@ public class ProductController {
         }
         //retrieve product from product service
         Optional<Product> product = productService.findById(productId);
-        if(product.isPresent()) {
+        if (product.isPresent()) {
             //add product to cart
             cartService.save(product.get(), user);
         }
