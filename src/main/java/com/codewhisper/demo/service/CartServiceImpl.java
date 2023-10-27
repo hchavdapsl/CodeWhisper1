@@ -15,7 +15,6 @@ import java.util.List;
 public class CartServiceImpl implements CartService {
     @Autowired
     CartRepository cartRepository;
-
     @Override
     public void save(Product product, User user) {
         cartRepository.save(new Cart(user.getName(), product.getId()));

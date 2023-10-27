@@ -41,6 +41,7 @@ public class SpringSecurity {
                             authorize.requestMatchers(new AntPathRequestMatcher("/static/images/**")).permitAll();
                             authorize.requestMatchers(new AntPathRequestMatcher("/images/**")).permitAll();
                             authorize.requestMatchers(new AntPathRequestMatcher("static/images/**")).permitAll();
+                            authorize.requestMatchers(new AntPathRequestMatcher("/register/**")).permitAll();
                             authorize.anyRequest().authenticated();
                         }
                 )

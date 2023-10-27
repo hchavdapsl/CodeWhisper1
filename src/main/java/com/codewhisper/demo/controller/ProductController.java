@@ -124,7 +124,6 @@ public class ProductController {
             //add product to cart
             cartService.save(product.get(), user);
         }
-        //redirect to products page
         return "index";
     }
 

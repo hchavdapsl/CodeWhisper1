@@ -28,16 +28,19 @@ public class CodeWhisperDemoApplication implements CommandLineRunner {
         SpringApplication.run(CodeWhisperDemoApplication.class, args);
     }
 
-    //load user data into database using name, username, password and email, use indian names
     @Override
     public void run(String... args) {
+        //load role data into database with role names as ADMIN and USER
         roleRepository.save(new Role("ADMIN"));
         roleRepository.save(new Role("USER"));
+
+        //load user data into database using name, username, password and email, use indian names
         userService.saveAdmin(new UserDto("admin", "admin", "admin", "test@test.com"));
         userService.saveUser(new UserDto("Sandeep", "sandeep", "sandeep", "sandeep@test.com"));
         userService.saveUser(new UserDto("Raj", "raj", "raj", "raj@test.com"));
-        productRepository.save(new Product("ring1", "Diamond ring", 2000, "ring_diamond.jpg"));
-        productRepository.save(new Product("ring2", "Gold ring", 1000, "ring_gold.jpg"));
-        productRepository.save(new Product("ring3", "Silver ring", 200, "ring_silver.jpg"));
+
+        productRepository.save(new Product("Diamond Queen", "Diamond ring", 2000, "ring_diamond.jpg"));
+        productRepository.save(new Product("Gold Queen", "Gold ring", 1000, "ring_gold.jpg"));
+        productRepository.save(new Product("Silver Queen", "Silver ring", 200, "ring_silver.jpg"));
     }
 }
